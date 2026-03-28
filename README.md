@@ -1,8 +1,16 @@
 # Figures Diagram
 
-`figures-diagram` is a Codex skill for academic non-numeric diagram generation.
+Codex skill for academic non-numeric diagram generation and OpenRouter-backed rendering.
 
-It converts a user's diagram idea into a polished English prompt for image models and can optionally render the figure directly through an OpenRouter-backed production workflow.
+This repository packages a reusable workflow for turning diagram ideas into polished English prompts for image models and, when requested, directly rendering publication-oriented draft figures.
+
+## Highlights
+
+- Prompt engineering for flowcharts, frameworks, concept maps, taxonomies, and timelines
+- Academic defaults for layout, readability, color usage, and labeling
+- Prompt-only mode for reusable figure ideation
+- Production mode for direct OpenRouter image rendering
+- Environment-variable based credential handling instead of hardcoded secrets
 
 ## Best Fit
 
@@ -18,25 +26,15 @@ Use this skill for:
 - taxonomy diagrams
 - timelines
 
-Do not use this skill for charts that depend on exact numeric values, such as line charts, bar charts, scatterplots, or heatmaps.
-
-## Core Capabilities
-
-- Classify the requested academic diagram type
-- Infer missing figure details when the request is incomplete
-- Generate publication-oriented English prompts for image models
-- Recommend the most suitable generation model for the figure type
-- Render the figure directly through OpenRouter when production mode is requested
+Do not use it for numeric charts such as line charts, bar charts, scatterplots, or heatmaps.
 
 ## Workflow
 
-The skill follows a compact figure workflow:
-
-1. Classify the figure
-2. Gather the minimum inputs
-3. Decide prompt-only vs production mode
+1. Classify the figure type
+2. Gather or infer the minimum inputs
+3. Choose prompt-only or production mode
 4. Build a polished academic prompt
-5. Render the image directly when credentials are available
+5. Render through OpenRouter when direct generation is requested
 
 ## Repository Layout
 
@@ -52,20 +50,31 @@ scripts/
   render_via_openrouter.py
 ```
 
-## Included References
+## Quick Start
 
-- `references/prompt-templates.md`
-  Reusable prompt skeletons for flowcharts, architecture diagrams, concept maps, taxonomies, and timelines
-- `references/style-and-tools.md`
-  Color palettes, readability defaults, and model recommendations
-- `references/openrouter-production.md`
-  Production rendering rules, model defaults, and environment setup
+Install into your Codex skills directory:
 
-## Included Script
+```text
+$CODEX_HOME/skills/figures-diagram
+```
 
-`scripts/render_via_openrouter.py` renders diagram prompts through OpenRouter and saves:
+Typical Windows path:
 
-- the generated image file
+```text
+C:\Users\<your-user>\.codex\skills\figures-diagram
+```
+
+Example prompts:
+
+- `Use $figures-diagram to create an academic concept map prompt for my theoretical framework.`
+- `Use $figures-diagram to generate a methodology flowchart prompt.`
+- `Use $figures-diagram to render a research-process figure now.`
+
+## Production Rendering
+
+The bundled script renders prompts through OpenRouter and saves:
+
+- the generated image
 - the original prompt text
 - the raw JSON response
 - any assistant text returned by the model
@@ -76,45 +85,25 @@ Example:
 python scripts/render_via_openrouter.py --prompt "Draw a publication-ready academic flowchart illustrating the proposed research process from data collection to model evaluation." --aspect-ratio 4:3 --output-dir output/figures
 ```
 
-## Production Model
-
-The default production model is:
+Default production model:
 
 - `google/gemini-3.1-flash-image-preview`
 
-The skill may refer to this in user-facing language as:
+User-facing aliases may refer to this as:
 
 - `Nano Banana`
 - `Nano Banana 2`
 
 ## Environment Variables
 
-For production rendering, configure:
-
 - `OPENROUTER_API_KEY`
 - `OPENROUTER_IMAGE_MODEL`
 
-The script also supports reading Windows user environment variables.
+The rendering script also supports Windows user environment variables.
 
-## Installation
+## Companion Repository
 
-Copy this folder into your Codex skills directory:
-
-```text
-$CODEX_HOME/skills/figures-diagram
-```
-
-On Windows, this is typically:
-
-```text
-C:\Users\<your-user>\.codex\skills\figures-diagram
-```
-
-## Example Usage
-
-- `Use $figures-diagram to create an academic concept map prompt for my theoretical framework.`
-- `Use $figures-diagram to generate a flowchart for my methodology section.`
-- `Use $figures-diagram to render a research-process figure now.`
+- `Thesis-Pipeline` for proposal drafting, literature retrieval, and methodology planning
 
 ## Design Principles
 
@@ -123,12 +112,6 @@ C:\Users\<your-user>\.codex\skills\figures-diagram
 - Use explicit layout and relationship instructions
 - Keep prompts drawable and production-oriented
 - Use prompt-only mode when direct rendering is unnecessary
-
-## Who This Repository Is For
-
-- Codex users who want a reusable academic figure skill
-- thesis and paper writers who need framework and process diagrams
-- research workflow builders who want prompt generation plus optional rendering
 
 ## License
 
