@@ -1,16 +1,46 @@
+<p align="center">
+  <img src="./assets/banner.svg" alt="Figures Diagram banner" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/z595484296-dev/Figures-Diagram?display_name=tag&sort=semver" alt="Release">
+  <img src="https://img.shields.io/github/license/z595484296-dev/Figures-Diagram" alt="License">
+  <img src="https://img.shields.io/badge/Codex-Skill-0F766E" alt="Codex Skill">
+  <img src="https://img.shields.io/badge/Focus-Academic%20Diagrams-2563EB" alt="Academic Diagrams">
+  <img src="https://img.shields.io/badge/Render-OpenRouter-082F49" alt="OpenRouter">
+</p>
+
 # Figures Diagram
 
 Codex skill for academic non-numeric diagram generation and OpenRouter-backed rendering.
 
 This repository packages a reusable workflow for turning diagram ideas into polished English prompts for image models and, when requested, directly rendering publication-oriented draft figures.
 
-## Highlights
+## At a Glance
 
 - Prompt engineering for flowcharts, frameworks, concept maps, taxonomies, and timelines
 - Academic defaults for layout, readability, color usage, and labeling
 - Prompt-only mode for reusable figure ideation
 - Production mode for direct OpenRouter image rendering
 - Environment-variable based credential handling instead of hardcoded secrets
+
+## Preview
+
+<p align="center">
+  <img src="./assets/preview.svg" alt="Figures Diagram preview" width="100%">
+</p>
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A["User Diagram Request"] --> B["Figure Type Classifier"]
+    B --> C["Input Inference and Defaults"]
+    C --> D["Prompt Construction Engine"]
+    D --> E["Prompt-Only Output"]
+    D --> F["OpenRouter Production Renderer"]
+    F --> G["Image File / Prompt File / JSON Response"]
+```
 
 ## Best Fit
 
@@ -48,6 +78,9 @@ references/
   style-and-tools.md
 scripts/
   render_via_openrouter.py
+assets/
+  banner.svg
+  preview.svg
 ```
 
 ## Quick Start
@@ -103,7 +136,7 @@ The rendering script also supports Windows user environment variables.
 
 ## Companion Repository
 
-- `Thesis-Pipeline` for proposal drafting, literature retrieval, and methodology planning
+- [`Thesis-Pipeline`](https://github.com/z595484296-dev/Thesis-Pipeline) for proposal drafting, literature retrieval, and methodology planning
 
 ## Design Principles
 
