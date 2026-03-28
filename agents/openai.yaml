@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Diagram Prompting"
+  short_description: "Prompt and render academic diagrams."
+  default_prompt: "Use $figures-diagram to turn my diagram idea into an English prompt and render it if needed."
